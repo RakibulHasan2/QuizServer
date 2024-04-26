@@ -14,6 +14,5 @@ namespace QuizServer.Model
         public string phoneNumber { get; set; }
         public string role { get; set; }
         public string pass { get; set; }
-        public string confirmPass { get; set; }
     }
 }
