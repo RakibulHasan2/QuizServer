@@ -19,7 +19,9 @@ IConfiguration configuration = new ConfigurationBuilder()
 
 var mongoclient = new MongoClient(configuration.GetConnectionString("MongoDb"));
 builder.Services.AddSingleton<IMongoClient>(mongoclient);
-builder.Services.AddTransient<IUserRepository, UserRepository>(); 
+
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
 
 var app = builder.Build();
 
