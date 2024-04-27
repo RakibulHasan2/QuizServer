@@ -24,6 +24,14 @@ namespace QuizServer.Controllers
             return new JsonResult(id.ToString());
         }
 
+        [HttpGet("login")]
+        public async Task<IActionResult> Login(string phoneNumber, string pass)
+        {
+            var user = await _userRepository.Login(phoneNumber, pass);
+            return new JsonResult(user);
+        }
+
+
         [HttpGet("get/{id}")]
         public async Task<IActionResult> Get(string id)
         {

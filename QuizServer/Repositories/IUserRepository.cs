@@ -13,6 +13,7 @@ namespace QuizServer.Repositories
         Task<bool> Update(ObjectId objectId, User users);
 
         Task<bool> Delete(ObjectId objectId);
-   
+
+        Task<User> Login(string phoneNumber, string pass);
     }
 }

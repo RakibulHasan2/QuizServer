@@ -21,6 +21,22 @@ namespace QuizServer.Repositories
             return user.userID;
         }
 
+
+        public async Task<User> Login(string phoneNumber, string password)
+        {
+        
+            var filter = Builders<User>.Filter.Eq(x => x.phoneNumber, phoneNumber);
+            var user = await _users.Find(filter).FirstOrDefaultAsync();
+           
+            if (user == null || user.pass != password)
+            {
+                return null;
+            }
+
+            // Return the user if the password is valid
+            return user;
+        }
+
         public async Task<bool> Delete(ObjectId objectId)
         {
             var filter = Builders<User>.Filter.Eq(x => x.userID, objectId);
