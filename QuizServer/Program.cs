@@ -1,16 +1,32 @@
 //eawR9UkNz5N9HgG0 pass for quiz app mongodB and DB name is Quiz_APP
 
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using QuizServer.Repositories;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 IConfiguration configuration = new ConfigurationBuilder()
     .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -19,10 +35,8 @@ IConfiguration configuration = new ConfigurationBuilder()
 
 var mongoclient = new MongoClient(configuration.GetConnectionString("MongoDb"));
 builder.Services.AddSingleton<IMongoClient>(mongoclient);
-
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,6 +47,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS middleware
+app.UseCors();
 
 app.UseAuthorization();
 
