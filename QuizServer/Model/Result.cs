@@ -14,7 +14,7 @@ namespace QuizServer.Model
         public string userPhoneNumber { get; set; }
 
         // Dictionary to store chosen options
-        public Dictionary<string, string> ChoseOption { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> selectedOptions { get; set; } = new Dictionary<string, string>();
 
     }
 }
