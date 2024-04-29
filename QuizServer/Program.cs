@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using QuizServer.Repositories;
 using System;
@@ -37,6 +37,8 @@ var mongoclient = new MongoClient(configuration.GetConnectionString("MongoDb"));
 builder.Services.AddSingleton<IMongoClient>(mongoclient);
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
+builder.Services.AddTransient<IResultRepository, ResultRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
