@@ -16,13 +16,13 @@ namespace QuizServer.Repositories
             _results = collection;
         }
 
-        public async Task<ObjectId> Create(Result result)
+        public async Task<String> Create(Result result)
         {
             await _results.InsertOneAsync(result);
             return result.resultID;
         }
 
-        public Task<Result> Get(ObjectId objectId)
+        public Task<Result> Get(String objectId)
         {
             var filter = Builders<Result>.Filter.Eq(x => x.resultID, objectId);
             var result = _results.Find(filter).FirstOrDefaultAsync();
@@ -31,8 +31,7 @@ namespace QuizServer.Repositories
 
         public async Task<IEnumerable<Result>> GetAll()
         {
-            var r = await _results.Find(_ => true).ToListAsync();
-            return r;
+            return await _results.Find(_ => true)  .ToListAsync();
         }
 
         public async Task<IEnumerable<Result>> GetByCatName(string Name)
@@ -41,7 +40,7 @@ namespace QuizServer.Repositories
             var r = await _results.Find(filter).ToListAsync();
             return r;
         }
-        public async Task<bool> Update(ObjectId objectId, Result result)
+        public async Task<bool> Update(String objectId, Result result)
         {
             var filter = Builders<Result>.Filter.Eq(x => x.resultID, objectId);
             var update = Builders<Result>.Update

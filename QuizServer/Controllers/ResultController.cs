@@ -21,13 +21,13 @@ namespace QuizServer.Controllers
         public async Task<IActionResult> Create(Result result)
         {
             var id = await _resultRepository.Create(result);
-            return new JsonResult(id.ToString());
+            return new JsonResult(id);
         }
 
         [HttpGet("get/{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            var r = await _resultRepository.Get(ObjectId.Parse(id));
+            var r = await _resultRepository.Get(id);
             return new JsonResult(r);
         }
 
@@ -50,7 +50,7 @@ namespace QuizServer.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> Update(string id, Result result)
         {
-            var r = await _resultRepository.Update(ObjectId.Parse(id), result);
+            var r = await _resultRepository.Update(id, result);
             return new JsonResult(r);
         }
 
