@@ -8,9 +8,7 @@ namespace QuizServer.Model
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
-
         public string resultID { get; set; } =  ObjectId.GenerateNewId().ToString();
-        //public ObjectId resultID { get; set; }
         public string userName { get; set; }
         public string categoryName { get; set; }
         public string userPhoneNumber { get; set; }
