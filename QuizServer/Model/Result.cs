@@ -15,6 +15,6 @@ namespace QuizServer.Model
 
         // Dictionary to store chosen options
         public Dictionary<string, string> selectedOptions { get; set; } = new Dictionary<string, string>();
-
+        public string score { get; set; }
     }
 }

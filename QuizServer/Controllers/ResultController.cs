@@ -47,5 +47,12 @@ namespace QuizServer.Controllers
             return new JsonResult(r);
         }
 
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Update(string id, Result result)
+        {
+            var r = await _resultRepository.Update(ObjectId.Parse(id), result);
+            return new JsonResult(r);
+        }
+
     }
 }

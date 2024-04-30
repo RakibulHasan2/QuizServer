@@ -41,5 +41,13 @@ namespace QuizServer.Repositories
             var r = await _results.Find(filter).ToListAsync();
             return r;
         }
+        public async Task<bool> Update(ObjectId objectId, Result result)
+        {
+            var filter = Builders<Result>.Filter.Eq(x => x.resultID, objectId);
+            var update = Builders<Result>.Update
+                .Set(x => x.score, result.score);
+            var r = await _results.UpdateOneAsync(filter, update);
+            return r.ModifiedCount == 1;
+        }
     }
 }

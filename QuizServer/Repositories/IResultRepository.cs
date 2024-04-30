@@ -9,5 +9,6 @@ namespace QuizServer.Repositories
         Task<Result> Get(ObjectId objectId);
         Task<IEnumerable<Result>> GetAll();
         Task<IEnumerable<Result>> GetByCatName(string Name);
+        Task<bool> Update(ObjectId objectId, Result result);
     }
 }
